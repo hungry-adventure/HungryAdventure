@@ -11,12 +11,12 @@ class StoryPage extends Component {
    }
 
   render() {
-    const budget = this.props.budget.original;
-    const flightCost = this.props.budget.flight || 0;
-    const hotelCost = this.props.budget.hotel || 0;
-    const activityCost = this.props.budget.viatorEvents || 0;
-    const foodCost = this.props.budget.yelpEvents || 0;
-    const totalBudget = budget - flightCost - hotelCost - activityCost - foodCost;
+    const budget = ~~(this.props.budget.original);
+    const flightCost = ~~(this.props.budget.flight) || 0;
+    const hotelCost = ~~(this.props.budget.hotel) || 0;
+    const activityCost = ~~(this.props.budget.viatorEvents) || 0;
+    const foodCost = ~~(this.props.budget.yelpEvents) || 0;
+    const totalBudget = ~~(budget - flightCost - hotelCost - activityCost - foodCost);
     const mapArray = pinArray(this.props);
 
     return (
@@ -44,7 +44,7 @@ class StoryPage extends Component {
                     <p>{this.props.destination.arrivalDate} until {this.props.destination.departureDate}</p>
                   </div>
                   <a href={this.props.destination.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Buy</a>
-                  <Checkbox className="right" />
+
                 </div>
               </Col>
             </div>
@@ -62,7 +62,7 @@ class StoryPage extends Component {
                     <p>{this.props.hotel.address}</p>
                   </div>
                   <a href={this.props.hotel.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Buy</a>
-                  <Checkbox className="right" validationState="success" />
+           
                 </Col>
               </div>
             </div>
@@ -82,7 +82,7 @@ class StoryPage extends Component {
                         <p>{event.phone}</p>
                       </div>
                       <a href={event.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Link</a>
-                      <Checkbox className="right" />
+        
                       {i < this.props.yelpEvents.length - 1 ?
                         <div className="space" />
                         : <div /> }
@@ -104,7 +104,7 @@ class StoryPage extends Component {
                         {event.title}
                       </div>
                       <a href={event.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Buy</a>
-                      <Checkbox className="right" />
+
                       {i < this.props.viatorEvents.length - 1 ?
                         <div className="space" />
                         : <div /> }
@@ -145,7 +145,7 @@ const mapStateToProps = ({ current, geo, budget }) => ({
   ...geo,
   geo,
   budget,
-
+  current,
 });
 
 export default connect(mapStateToProps, null)(StoryPage);

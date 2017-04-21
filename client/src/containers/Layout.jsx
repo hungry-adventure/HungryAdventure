@@ -227,6 +227,7 @@ class Layout extends React.Component {
                       <img src="http://www.freeiconspng.com/uploads/facebook-logo-29.png" height="85" width="125"></img>
                       <img src="https://s3-media2.fl.yelpcdn.com/assets/srv0/styleguide/1ea40efd80f5/assets/img/brand_guidelines/yelp_fullcolor.png" height="75" width="125"></img>
                       <img src="https://upload.wikimedia.org/wikipedia/commons/7/76/Skyscanner_Logo_New.png" height="65" width="220"></img>
+                      <img src="https://travelmassive.com/blog/wp-content/uploads/2014/08/viator.png" width="180" />
                   </div>
                 </div>
             </div>

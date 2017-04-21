@@ -25,17 +25,19 @@ constructor (props){
 handleSelect = (destination, geo) => {
   this.props.destinationSet(destination);
   this.props.flightBudget({ price: destination.price, original: Number(this.props.budget.original) });
-  this.props.fetchTerminal({ terminal: destination.IataCode })
+  this.props.fetchTerminal({ terminal: destination.IataCode, city: destination.city, country: destination.country })
+    .then((result) => {
+      this.props.fetchHotels({
+        latitude: result.payload.latitude,
+        longitude: result.payload.longitude,
+      })
+    })
   this.props.fetchGeo({ city: destination.city, country: destination.country })
     .then((result) => {
       this.props.fetchWeather({
         latitude: result.payload.latitude,
         longitude: result.payload.longitude,
         time: destination.arrivalDate,
-      })
-      this.props.fetchHotels({
-        latitude: result.payload.latitude,
-        longitude: result.payload.longitude,
       })
     });
   this.props.destinationImage({ destination: destination.imageUrl[0] })

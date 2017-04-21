@@ -18,6 +18,8 @@ module.exports = {
   },
   getTerminal(req, res) {
     const terminal = req.query.terminal;
+    const city = req.query.city;
+    const country = req.query.country;
     const options = {
       provider: 'google',
       httpAdapter: 'https',
@@ -26,7 +28,7 @@ module.exports = {
 
     const geocoder = NodeGeocoder(options);
 
-    geocoder.geocode(terminal)
+    geocoder.geocode(`${terminal} ${city} ${country}`)
       .then(result => res.send(result))
       .catch(err => res.send(err));
   },

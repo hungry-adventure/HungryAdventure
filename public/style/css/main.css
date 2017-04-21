@@ -809,6 +809,17 @@ body #main {
 }
 
 
+.circlePic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: coral;
+  z-index: 10;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+
 
 .mapsPadding {
   padding: 0;
@@ -905,20 +916,39 @@ body.modal-open .supreme-container {
   .floatMe {
     float: left;
   }
-  .circleAdd{
-    width: 40px;
-    height: 40px;
+  .circleAddDest{
+    width: 30px;
+    height: 30px;
     margin-left: 5px;
+    margin-top: 12vw;
+  }
+  .circleAddHotel{
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 23vw;
+  }
+  .circleAddEvent{
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 34vw;
+  }
+  .circleAddFood{
+    width: 30px;
+    height: 30px;
+    margin-left: 5px;
+    margin-top: 45vw;
   }
   .circle {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     margin-left: 5px;
   }
   .checkoutbutton {
     font-size: 20px !important;
-    left: 10px ;
-    top: 10px;
+    left: 5px ;
+    top: 5px;
   }
 }
 

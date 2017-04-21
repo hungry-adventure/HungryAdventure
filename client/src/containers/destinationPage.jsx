@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 // +++++ Imported Components
 import { Link } from 'react-router-dom';
-import { Col, Button } from 'react-bootstrap';
+import { Col, Button, Modal } from 'react-bootstrap';
 import GoogleMaps from './GoogleMaps';
 import HotelList from '../components/HotelList';
 import Weather from '../components/weather';
@@ -17,46 +17,120 @@ import { pinArray } from '../../utils/storyPageHelpers';
 import DonutChart from 'react-donut-chart';
 
 class destinationPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+     showModal: false,
+     title: `${this.props.current.destination.city}, ${this.props.current.destination.country}`,
+     info: "",
+    };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+  }
 
   componentWillMount() {
     window.scrollTo(0, 0);
   }
 
+  more(list) {
+    if(list.city) {
+      return (
+        <div>
+          <h4>Terminal: {list.originTerminal}</h4>
+          <h4>Price: ${list.price}</h4>
+          <h4>Arrving: {list.arrivalDate}</h4>
+          <h4>Leaving: {list.departureDate}</h4>
+          <h4><a href={list.url} target="_blank">More Info</a></h4>
+        </div>
+      )
+    } else if (list.hotel) {
+      return (
+        <div>
+          <h4>Hotel: {list.hotel}</h4>
+          <h4>Price: ${list.price}</h4>
+          <h4>Location: {list.address}</h4>
+          <h4><a href={list.url} target="_blank">More Info</a></h4>
+        </div>
+      )
+    } else if (Array.isArray(list) && list[0].name) {
+        return list.map((event, i) => (
+          <div key={i}>
+            <h6>{event.name}</h6>
+            <h6>{event.categories[0].title}</h6>
+            <h6>Price: {event.price}</h6>
+            <h6>Rating: {event.rating}</h6>
+            <h6><a href={event.url} target="_blank">More Info</a></h6>
+            < br/>
+          </div>
+        ))
+    } else if (Array.isArray(list) && list[0].title) {
+        return list.map((event, i) => (
+          <div key={i}>
+            <h6>{event.title}</h6>
+            <h6>Price: ${event.price}</h6>
+            <h6>Rating: {event.rating}</h6>
+            <h6><a href={event.url } target="_blank">More Info</a></h6>
+            < br/>
+          </div>
+        ))
+    }
+  }
+
+  open(obj) {
+    this.setState({ showModal: true });
+    this.setState({info: this.more(obj) });
+  }
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
   loadDestination = () => {
     if(this.props.current.destination.imageUrl.length > 0){
-      return <img className="circleAdd" style={{ marginTop: '12vw',}} src={this.props.current.destination.imageUrl[0]}></img>
+      return <div onClick={() => this.open(this.props.current.destination)}><img className="circleAdd circleAddDest" style={{ marginTop: '9vw',}} src={this.props.current.destination.imageUrl[0]}></img></div>
     }
   }
 
   loadHotel = () => {
     if(this.props.current.hotel.pictures.length > 0){
-      return <img className="circleAdd" style={{ marginTop: '23vw',}} src={this.props.current.hotel.pictures[0]}></img>
+      return <div onClick={() => this.open(this.props.current.hotel)}><img className="circleAdd circleAddHotel" style={{ marginTop: '17vw',}} src={this.props.current.hotel.pictures[0]}></img></div>
     }
   }
 
   loadEvents = () => {
     if(this.props.current.viatorEvents.length > 0){
-        return <img className="circleAdd" style={{ marginTop: "34vw",}} src={this.props.current.viatorEvents[0].image}></img>
+        return <div onClick={() => this.open(this.props.current.viatorEvents)}><img className="circleAdd circleAddEvent" style={{ marginTop: "25vw",}} src={this.props.current.viatorEvents[0].image}></img></div>
     }
   }
 
  loadFood = () => {
     if(this.props.current.yelpEvents.length > 0){
-        return <img className="circleAdd" style={{ marginTop: "45vw",}} src={this.props.current.yelpEvents[0].image_url}></img>
+        return <div onClick={() => this.open(this.props.current.yelpEvents)}><img className="circleAdd circleAddFood" style={{ marginTop: "33vw",}} src={this.props.current.yelpEvents[0].image_url}></img></div>
     }
   }
 
-
   render() {
-    const budget = this.props.budget.original;
-    const flightCost = this.props.budget.flight || 0;
-    const hotelCost = this.props.budget.hotel || 0;
-    const activityCost = this.props.budget.viatorEvents || 0;
-    const foodCost = this.props.budget.yelpEvents || 0;
-    const totalBudget = budget - flightCost - hotelCost - activityCost - foodCost;
+    const budget = ~~(this.props.budget.original);
+    const flightCost = ~~(this.props.budget.flight) || 0;
+    const hotelCost = ~~(this.props.budget.hotel) || 0;
+    const activityCost = ~~(this.props.budget.viatorEvents) || 0;
+    const foodCost = ~~(this.props.budget.yelpEvents) || 0;
+    const totalBudget = ~~(budget - flightCost - hotelCost - activityCost - foodCost);
     const mapArray = pinArray(this.props);
 
     return (<div>
+      <Modal show={this.state.showModal} onHide={this.close}>
+        <Modal.Header closeButton>
+          <Modal.Title>{this.state.title}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {this.state.info}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={this.close}>Close</Button>
+        </Modal.Footer>
+      </Modal>
+
       <Link to="/storypage"><div className="circle"><div className="checkoutbutton glyphicon glyphicon-shopping-cart" /></div></Link>
       {this.loadDestination()}
       {this.loadHotel()}
