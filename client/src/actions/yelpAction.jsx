@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export function fetchYelpEvents(placeObj) {
-  console.log('THIS IS THE YELP', placeObj);
   return function (dispatch) {
     return axios.get('/api/yelp', {
       params: placeObj })
