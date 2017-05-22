@@ -283,7 +283,7 @@ class Layout extends React.Component {
                         <img alt="" className="profilePicture img-circle" src="http://michaeljchan.com/image/profile.PNG" height="65" width="65" />
                       </a>
                       <h4>{'Michael Chan'}</h4>
-                      <h5>{'Product owner'}</h5>
+                      <h5>{'Product Owner'}</h5>
                       <h5>{'Software Engineer'}</h5>
                       <p>
                         <a href="http://github.com/ThinkFWD" target="_blank" rel="noopener noreferrer">
@@ -299,7 +299,7 @@ class Layout extends React.Component {
                         <img alt="" className="profilePicture img-circle" src="https://avatars2.githubusercontent.com/u/14501778?v=3&s=460" height="65" width="65" />
                       </a>
                       <h4>{'Vincent Liu'}</h4>
-                      <h5>{'Scrum master'}</h5>
+                      <h5>{'Scrum Master'}</h5>
                       <h5>{'Software Engineer'}</h5>
                       <p>
                         <a href="https://github.com/supreme38" target="_blank" rel="noopener noreferrer">

@@ -30,8 +30,8 @@ const Weather = ({ destination, weather }) => {
 Weather.defaultProps = {
   weather: {
     date: '',
-    highTemp: 0,
-    lowTemp: 0,
+    highTemp: '--',
+    lowTemp: '--',
     summary: '',
     timeofDay: '',
   },
@@ -50,8 +50,8 @@ Weather.defaultProps = {
 Weather.propTypes = {
   weather: PropTypes.shape({
     date: PropTypes.string,
-    highTemp: PropTypes.number,
-    lowTemp: PropTypes.number,
+    highTemp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    lowTemp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     summary: PropTypes.string,
     timeofDay: PropTypes.string,
   }),
