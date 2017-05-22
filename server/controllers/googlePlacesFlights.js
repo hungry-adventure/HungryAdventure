@@ -31,7 +31,7 @@ module.exports = {
             country.Countries.forEach((city) => {
               city.Cities.forEach((airport1) => {
                 airport1.Airports.forEach((locate) => {
-                  for (let i = 0; i < locate.Location.length; i++) {
+                  for (let i = 0; i < locate.Location.length; i += 1) {
                     const newLocate = locate.Location.split(' ');
                     match[locate.Id] = newLocate;
                     newLocate[0] = newLocate[0].slice(0, -1);

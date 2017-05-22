@@ -3,9 +3,9 @@ const pg = require('../config/database.js');
 module.exports = {
   getProfile(req, res) {
     pg('users').where('email', req.query.email).then((results) => {
-      let name = req.query.name,
-        email = req.query.email,
-        profilePicture = (JSON.parse(req.query.picture)).data.url;
+      const name = req.query.name;
+      const email = req.query.email;
+      const profilePicture = (JSON.parse(req.query.picture)).data.url;
 
       if (results.length < 1) {
         // create a new users
@@ -13,9 +13,9 @@ module.exports = {
           name,
           email,
           profilePicture,
-        }).then((data) => {
-          const results = [];
-          results.push({ name, email, profilePicture });
+        }).then(() => {
+          const outcome = [];
+          outcome.push({ name, email, profilePicture });
           res.send(results);
         });
       } else {
@@ -35,4 +35,3 @@ module.exports = {
     });
   },
 };
-
