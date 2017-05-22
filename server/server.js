@@ -1,14 +1,10 @@
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-// const bodyParser = require('body-parser')
 require('dotenv').config();
 
 const pg = require('./config/database.js');
 const app = express();
-
-// app.use(bodyParser.json())
-// app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cors());
 require('./config/routes.js')(app, express);
 
