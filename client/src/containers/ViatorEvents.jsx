@@ -69,7 +69,7 @@ class ViatorEvents extends Component {
           </Col>
         </Row>
         {this.props.viator.events.map((event, index) => (
-          <Col md={3} key={event.price + event.url} className={`viatorContainer${!this.state[index] ? '' : this.state[index]}${(index > 3) ? this.state.show : ''}`}>
+          <Col md={3} key={index} className={`viatorContainer${!this.state[index] ? '' : this.state[index]}${(index > 3) ? this.state.show : ''}`}>
             <div className="portfolio-box" onClick={() => this.add(event, index)}>
               <img alt="" className="eventImg" src={event.image} />
               <div className="portfolio-box-caption">

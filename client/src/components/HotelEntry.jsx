@@ -91,8 +91,8 @@ class HotelEntry extends Component {
                   <div className="hotelInfo">
                     <span className="infoSpacing">${hotel.price}</span>
                     <span className="infoSpacing">{hotel.hotel}</span>
-                    {Array(Math.floor(hotel.rating)).fill(0).map(() =>
-                      <span key={hotel.id + hotel.rating} className="glyphicon glyphicon-star" />,
+                    {Array(Math.floor(hotel.rating)).fill(0).map((elem, i) =>
+                      <span key={i} className="glyphicon glyphicon-star" />,
                       )}
                     <span className="glyphicons glyphicons-star" />
                   </div>
