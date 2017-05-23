@@ -15,30 +15,40 @@ import { fetchFrommers } from '../actions/frommersAction';
 
 
 class DestinationEntry extends Component {
-
-  getRandomInt = (min, max) => {
+  constructor(props) {
+    super(props);
+    this.getRandomInt = this.getRandomInt.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+  getRandomInt(min, max) {
     const mini = Math.ceil(min);
     const maxi = Math.floor(max);
     return Math.floor(Math.random() * (maxi - mini)) + mini;
   }
 
-  handleSelect = (destination) => {
+  handleSelect(destination) {
     this.props.destinationSet(destination);
     this.props.flightBudget({
       price: destination.price,
       original: Number(this.props.budget.original),
     });
-    this.props.fetchTerminal({ terminal: destination.IataCode });
+    this.props.fetchTerminal({
+      terminal: destination.IataCode,
+      city: destination.city,
+      country: destination.country,
+    })
+      .then((result) => {
+        this.props.fetchHotels({
+          latitude: result.payload.latitude,
+          longitude: result.payload.longitude,
+        });
+      });
     this.props.fetchGeo({ city: destination.city, country: destination.country })
     .then((result) => {
       this.props.fetchWeather({
         latitude: result.payload.latitude,
         longitude: result.payload.longitude,
         time: destination.arrivalDate,
-      });
-      this.props.fetchHotels({
-        latitude: result.payload.latitude,
-        longitude: result.payload.longitude,
       });
     });
     this.props.destinationImage({ destination: destination.imageUrl[0] });
@@ -52,7 +62,7 @@ class DestinationEntry extends Component {
   render() {
     return (
       <section className="no-padding" id="locations">
-        {this.props.destinations.destinations.map((destination) => (
+        {this.props.destinations.destinations.map(destination => (
           <div className="col-lg-4 col-sm-6" key={destination.city + destination.price}>
             <div
               className="event-card"

@@ -54,13 +54,13 @@ module.exports = {
             }
           };
           const result = [];
-          for (const key in googleAirports) {
-            for (const key2 in match) {
+          Object.keys(googleAirports).forEach((key) => {
+            Object.keys(match).forEach((key2) => {
               if (matchHelper(googleAirports[key].lat, match[key2][1], googleAirports[key].lng, match[key2][0])) {
                 result.push(match[key2][2]);
               }
-            }
-          }
+            });
+          });
           res.json(result[0]);
         });
       });

@@ -13,7 +13,11 @@ import { getGoogleData } from '../actions/userLocationAction';
 
 
 class Destinations extends Component {
-
+  constructor(props) {
+    super(props);
+    this.getRandomInt = this.getRandomInt.bind(this);
+    this.submit = this.submit.bind(this);
+  }
   componentWillMount() {
     this.props.resetBudget();
 
@@ -48,13 +52,13 @@ class Destinations extends Component {
     }
   }
 
-  getRandomInt = (min, max) => {
+  getRandomInt(min, max) {
     const minCopy = Math.ceil(min);
     const maxCopy = Math.floor(max);
     return Math.floor(Math.random() * (maxCopy - minCopy)) + minCopy;
   }
 
-  submit = (values) => {
+  submit(values) {
     this.props.getBudget(values);
     this.props.fetchDestinations(values).then(() => {
       this.props.history.push(`/flights?Budget=${values.Budget}&departDate=${values.departDate}&arrivalDate=${values.arrivalDate}`);

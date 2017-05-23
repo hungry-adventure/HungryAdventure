@@ -29,7 +29,9 @@ const validate = (values) => {
   return errors;
 };
 
-const renderStartDatePicker = ({ input: { onChange, value }, showTime, placeholder }) => (<DateTimePicker
+const renderStartDatePicker = ({
+  input: { onChange, value }, showTime, placeholder,
+}) => (<DateTimePicker
   onChange={onChange}
   format="DD MMM YYYY"
   time={showTime}
@@ -38,7 +40,9 @@ const renderStartDatePicker = ({ input: { onChange, value }, showTime, placehold
   placeholder={placeholder}
 />);
 
-const renderEndDatePicker = ({ input: { onChange, value }, showTime, placeholder, defaultValue }) => (<DateTimePicker
+const renderEndDatePicker = ({
+  input: { onChange, value }, showTime, placeholder, defaultValue,
+}) => (<DateTimePicker
   onChange={onChange}
   format="DD MMM YYYY"
   time={showTime}

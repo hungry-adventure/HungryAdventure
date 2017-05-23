@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // ++++++ Imported Actions
@@ -11,8 +11,11 @@ import { getGoogleData } from '../actions/userLocationAction';
 import Search from './searchForm';
 import Auth from './FacebookAuth';
 
-class Layout extends React.Component {
-
+class Layout extends Component {
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this);
+  }
   componentWillMount() {
     this.props.reset();
   }
@@ -68,7 +71,7 @@ class Layout extends React.Component {
                 <h1 id="homeHeading">HUNGRY ADVENTURE</h1><font size="8px">Beta</font>
                 <hr />
                 <center>
-                  <Search onSubmit={this.submit.bind(this)} />
+                  <Search onSubmit={this.submit} />
                 </center>
               </div>
             </div>
@@ -283,7 +286,7 @@ class Layout extends React.Component {
                         <img alt="" className="profilePicture img-circle" src="http://michaeljchan.com/image/profile.PNG" height="65" width="65" />
                       </a>
                       <h4>{'Michael Chan'}</h4>
-                      <h5>{'Product owner'}</h5>
+                      <h5>{'Product Owner'}</h5>
                       <h5>{'Software Engineer'}</h5>
                       <p>
                         <a href="http://github.com/ThinkFWD" target="_blank" rel="noopener noreferrer">
@@ -299,7 +302,7 @@ class Layout extends React.Component {
                         <img alt="" className="profilePicture img-circle" src="https://avatars2.githubusercontent.com/u/14501778?v=3&s=460" height="65" width="65" />
                       </a>
                       <h4>{'Vincent Liu'}</h4>
-                      <h5>{'Scrum master'}</h5>
+                      <h5>{'Scrum Master'}</h5>
                       <h5>{'Software Engineer'}</h5>
                       <p>
                         <a href="https://github.com/supreme38" target="_blank" rel="noopener noreferrer">

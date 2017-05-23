@@ -16,9 +16,13 @@ class HotelEntry extends Component {
     this.state = {
       flag: 'See More >>',
     };
+    this.add = this.add.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.select = this.select.bind(this);
+    this.clickHotel = this.clickHotel.bind(this);
   }
 
-  add = (hotel, props) => {
+  add(hotel, props) {
     this.props.currentHotel({ hotel });
     this.props.hotelBudget({
       id: hotel.id,
@@ -30,7 +34,7 @@ class HotelEntry extends Component {
     this.props.hotelImage({ hotel: hotel.pictures[0] });
   }
 
-  toggle = ({ hotels }) => {
+  toggle({ hotels }) {
     this.props.toggleHotels({ hotels });
     scroll.scrollMore(500, { delay: 100 });
     if (this.state.flag === 'See More >>') {
@@ -39,10 +43,10 @@ class HotelEntry extends Component {
       this.setState({ flag: 'See More >>' });
     }
   }
-  select = (hotel, toggle) => {
+  select(hotel, toggle) {
     this.props.toggleSelect({ hotel, select: toggle.select });
   }
-  clickHotel = (hotel, props) => {
+  clickHotel(hotel, props) {
     this.add(hotel, props);
     this.select(hotel, props.toggle);
   }
@@ -88,7 +92,7 @@ class HotelEntry extends Component {
                     <span className="infoSpacing">${hotel.price}</span>
                     <span className="infoSpacing">{hotel.hotel}</span>
                     {Array(Math.floor(hotel.rating)).fill(0).map((elem, i) =>
-                      <span key={hotel.id + i} className="glyphicon glyphicon-star" />,
+                      <span key={i} className="glyphicon glyphicon-star" />,
                       )}
                     <span className="glyphicons glyphicons-star" />
                   </div>
@@ -134,6 +138,7 @@ HotelEntry.propTypes = {
   }),
   toggle: PropTypes.shape({
     select: PropTypes.number,
+    hotels: PropTypes.bool,
   }),
 };
 
