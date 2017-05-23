@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import DonutChart from 'react-donut-chart';
-import { Col, Checkbox } from 'react-bootstrap';
+import { Col } from 'react-bootstrap';
 import GoogleMaps from './GoogleMaps';
 import { pinArray, yelpPrice } from '../../utils/storyPageHelpers';
 
@@ -12,12 +12,12 @@ class StoryPage extends Component {
   }
 
   render() {
-    const budget = ~~(this.props.budget.original);
-    const flightCost = ~~(this.props.budget.flight) || 0;
-    const hotelCost = ~~(this.props.budget.hotel) || 0;
-    const activityCost = ~~(this.props.budget.viatorEvents) || 0;
-    const foodCost = ~~(this.props.budget.yelpEvents) || 0;
-    const totalBudget = ~~(budget - flightCost - hotelCost - activityCost - foodCost);
+    const budget = Math.floor(this.props.budget.original);
+    const flightCost = Math.floor(this.props.budget.flight) || 0;
+    const hotelCost = Math.floor(this.props.budget.hotel) || 0;
+    const activityCost = Math.floor(this.props.budget.viatorEvents) || 0;
+    const foodCost = Math.floor(this.props.budget.yelpEvents) || 0;
+    const totalBudget = Math.floor(budget - flightCost - hotelCost - activityCost - foodCost);
     const mapArray = pinArray(this.props);
 
     return (
@@ -63,7 +63,7 @@ class StoryPage extends Component {
                     <p>{this.props.hotel.address}</p>
                   </div>
                   <a href={this.props.hotel.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Buy</a>
-           
+
                 </Col>
               </div>
             </div>
@@ -74,7 +74,7 @@ class StoryPage extends Component {
                 <Col sm={10}>
                   <h3 className="price-title text-aquamarine h3">{'Restaurants'}</h3>
                   {this.props.yelpEvents.map((event, i) =>
-                    <div key={event.name}>
+                    (<div key={event.name}>
                       <h3 className="text-white h3">~${yelpPrice(event.price)}</h3>
                       <div className="clearfix" />
                       <div className="text-white rule">
@@ -83,11 +83,11 @@ class StoryPage extends Component {
                         <p>{event.phone}</p>
                       </div>
                       <a href={event.url} rel="noopener noreferrer" target="_blank" className="btn-solid" style={{ borderRadius: '0' }}>Link</a>
-        
+
                       {i < this.props.yelpEvents.length - 1 ?
                         <div className="space" />
                         : <div /> }
-                    </div>)}
+                    </div>))}
                 </Col>
               </div>
             </div>
@@ -98,7 +98,7 @@ class StoryPage extends Component {
                 <Col sm={10}>
                   <h3 className="price-title text-aquamarine h3">Events</h3>
                   {this.props.viatorEvents.map((event, i) =>
-                    <div key={event.title}>
+                    (<div key={event.title}>
                       <h3 className="text-white h3">${event.price}</h3>
                       <div className="clearfix" />
                       <div className="text-white rule">
@@ -109,7 +109,7 @@ class StoryPage extends Component {
                       {i < this.props.viatorEvents.length - 1 ?
                         <div className="space" />
                         : <div /> }
-                    </div>)}
+                    </div>))}
                 </Col>
               </div>
             </div>
@@ -131,7 +131,11 @@ class StoryPage extends Component {
                 { label: `Food ( $ ${foodCost} )`,
                   value: foodCost,
                 },
-                ]} height={300} width={300} legend={false} className="storyDonut"
+                ]}
+                height={300}
+                width={300}
+                legend={false}
+                className="storyDonut"
               />
             </div>
           </div>

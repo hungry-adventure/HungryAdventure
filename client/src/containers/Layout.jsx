@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 // ++++++ Imported Actions
@@ -11,8 +11,11 @@ import { getGoogleData } from '../actions/userLocationAction';
 import Search from './searchForm';
 import Auth from './FacebookAuth';
 
-class Layout extends React.Component {
-
+class Layout extends Component {
+  constructor(props) {
+    super(props);
+    this.submit = this.submit.bind(this);
+  }
   componentWillMount() {
     this.props.reset();
   }
@@ -68,7 +71,7 @@ class Layout extends React.Component {
                 <h1 id="homeHeading">HUNGRY ADVENTURE</h1><font size="8px">Beta</font>
                 <hr />
                 <center>
-                  <Search onSubmit={this.submit.bind(this)} />
+                  <Search onSubmit={this.submit} />
                 </center>
               </div>
             </div>

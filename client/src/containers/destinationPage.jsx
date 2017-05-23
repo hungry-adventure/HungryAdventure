@@ -17,14 +17,18 @@ import { pinArray } from '../../utils/storyPageHelpers';
 
 class destinationPage extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-     showModal: false,
-     title: `${this.props.current.destination.city}, ${this.props.current.destination.country}`,
-     info: "",
+      showModal: false,
+      title: `${this.props.current.destination.city}, ${this.props.current.destination.country}`,
+      info: '',
     };
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
+    this.loadDestination = this.loadDestination.bind(this);
+    this.loadHotel = this.loadHotel.bind(this);
+    this.loadEvents = this.loadEvents.bind(this);
+    this.loadFood = this.loadFood.bind(this);
   }
 
   componentWillMount() {
@@ -32,46 +36,46 @@ class destinationPage extends Component {
   }
 
   modalInfo(tripInfo) {
-    if(tripInfo.city) {
+    if (tripInfo.city) {
       return (
         <div>
           <h4>Terminal: { tripInfo.originTerminal }</h4>
           <h4>Price: ${ tripInfo.price }</h4>
           <h4>Arrving: { tripInfo.arrivalDate }</h4>
-          <h4>Leaving:  {tripInfo.departureDate }</h4>
-          <h4><a href={ tripInfo.url } target="_blank">More Info</a></h4>
+          <h4>Leaving: {tripInfo.departureDate }</h4>
+          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
         </div>
-      )
+      );
     } else if (tripInfo.hotel) {
       return (
         <div>
           <h4>Hotel: { tripInfo.hotel }</h4>
           <h4>Price: ${ tripInfo.price }</h4>
           <h4>Location: { tripInfo.address }</h4>
-          <h4><a href={ tripInfo.url } target="_blank">More Info</a></h4>
+          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
         </div>
-      )
+      );
     } else if (Array.isArray(tripInfo) && tripInfo[0].name) {
-        return tripInfo.map((event, i) => (
-          <div key={i}>
-            <h6>{ event.name }</h6>
-            <h6>{ event.categories[0].title }</h6>
-            <h6>Price: { event.price }</h6>
-            <h6>Rating: { event.rating }</h6>
-            <h6><a href={ event.url } target="_blank">More Info</a></h6>
-            < br/>
-          </div>
-        ))
+      return tripInfo.map(event => (
+        <div key={event.name + event.price}>
+          <h6>{ event.name }</h6>
+          <h6>{ event.categories[0].title }</h6>
+          <h6>Price: { event.price }</h6>
+          <h6>Rating: { event.rating }</h6>
+          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
+          <br />
+        </div>
+        ));
     } else if (Array.isArray(tripInfo) && tripInfo[0].title) {
-        return tripInfo.map((event, i) => (
-          <div key={i}>
-            <h6>{ event.title }</h6>
-            <h6>Price: ${ event.price }</h6>
-            <h6>Rating: { event.rating }</h6>
-            <h6><a href={ event.url } target="_blank">More Info</a></h6>
-            < br/>
-          </div>
-        ))
+      return tripInfo.map(event => (
+        <div key={event.name + event.price}>
+          <h6>{ event.title }</h6>
+          <h6>Price: ${ event.price }</h6>
+          <h6>Rating: { event.rating }</h6>
+          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
+          <br />
+        </div>
+        ));
     }
   }
 
@@ -84,64 +88,68 @@ class destinationPage extends Component {
     this.setState({ showModal: false });
   }
 
-  loadDestination = () => {
-    if(this.props.current.destination.imageUrl.length > 0){
-      return <div onClick={ () => this.open(this.props.current.destination) }><img className="circleAdd circleAddDest" style={{ marginTop: '9vw',}} src={this.props.current.destination.imageUrl[0]}></img></div>
+  loadDestination() {
+    if (this.props.current.destination.imageUrl.length > 0) {
+      return <div onClick={() => this.open(this.props.current.destination)}><img alt="" className="circleAdd circleAddDest" style={{ marginTop: '9vw' }} src={this.props.current.destination.imageUrl[0]} /></div>;
     }
     return '';
   }
 
-  loadHotel = () => {
-    if(this.props.current.hotel.pictures.length > 0){
-      return <div onClick={ () => this.open(this.props.current.hotel) }><img className="circleAdd circleAddHotel" style={{ marginTop: '17vw',}} src={this.props.current.hotel.pictures[0]}></img></div>
+  loadHotel() {
+    if (this.props.current.hotel.pictures.length > 0) {
+      return <div onClick={() => this.open(this.props.current.hotel)}><img alt="" className="circleAdd circleAddHotel" style={{ marginTop: '17vw' }} src={this.props.current.hotel.pictures[0]} /></div>;
     }
     return '';
   }
 
-  loadEvents = () => {
-    if(this.props.current.viatorEvents.length > 0){
-        return <div onClick={ () => this.open(this.props.current.viatorEvents) }><img className="circleAdd circleAddEvent" style={{ marginTop: "25vw",}} src={this.props.current.viatorEvents[0].image}></img></div>
-
+  loadEvents() {
+    if (this.props.current.viatorEvents.length > 0) {
+      return <div onClick={() => this.open(this.props.current.viatorEvents)}><img alt="" className="circleAdd circleAddEvent" style={{ marginTop: '25vw' }} src={this.props.current.viatorEvents[0].image} /></div>;
     }
     return '';
   }
 
- loadFood = () => {
-    if(this.props.current.yelpEvents.length > 0){
-        return <div onClick={ () => this.open(this.props.current.yelpEvents) }><img className="circleAdd circleAddFood" style={{ marginTop: "33vw",}} src={this.props.current.yelpEvents[0].image_url}></img></div>
+  loadFood() {
+    if (this.props.current.yelpEvents.length > 0) {
+      return <div onClick={() => this.open(this.props.current.yelpEvents)}><img alt="" className="circleAdd circleAddFood" style={{ marginTop: '33vw' }} src={this.props.current.yelpEvents[0].image_url} /></div>;
     }
     return '';
   }
 
   render() {
-    const budget = ~~(this.props.budget.original);
-    const flightCost = ~~(this.props.budget.flight) || 0;
-    const hotelCost = ~~(this.props.budget.hotel) || 0;
-    const activityCost = ~~(this.props.budget.viatorEvents) || 0;
-    const foodCost = ~~(this.props.budget.yelpEvents) || 0;
-    const totalBudget = ~~(budget - flightCost - hotelCost - activityCost - foodCost);
+    const budget = Math.floor(this.props.budget.original);
+    const flightCost = Math.floor(this.props.budget.flight) || 0;
+    const hotelCost = Math.floor(this.props.budget.hotel) || 0;
+    const activityCost = Math.floor(this.props.budget.viatorEvents) || 0;
+    const foodCost = Math.floor(this.props.budget.yelpEvents) || 0;
+    const totalBudget = Math.floor(budget - flightCost - hotelCost - activityCost - foodCost);
     const mapArray = pinArray(this.props);
 
     return (<div>
-      <Modal show={ this.state.showModal } onHide={ this.close }>
+      <Modal show={this.state.showModal} onHide={this.close}>
         <Modal.Header closeButton>
           <Modal.Title>{ this.state.title }</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          { this.state.info } 
+          { this.state.info }
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={ this.close }>Close</Button>
+          <Button onClick={this.close}>Close</Button>
         </Modal.Footer>
       </Modal>
 
-      <Link to="/storypage"><div className="circle"><div className="checkoutbutton glyphicon glyphicon-shopping-cart" /></div></Link>
+      <Link to="/storypage">
+        <div className="circle">
+          <div className="checkoutbutton glyphicon glyphicon-shopping-cart" />
+        </div>
+      </Link>
       {this.loadDestination()}
       {this.loadHotel()}
       {this.loadEvents()}
       {this.loadFood()}
       <div
-        className="hero" style={{
+        className="hero"
+        style={{
           background: `linear-gradient( rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url(${this.props.destination.imageUrl[0]}) no-repeat center center fixed`,
           height: '60%',
           backgroundSize: 'cover',
@@ -176,7 +184,11 @@ class destinationPage extends Component {
           { label: `Food ( $ ${foodCost} )`,
             value: foodCost,
           },
-          ]} height={200} width={200} legend={false} className="donutAlign"
+          ]}
+          height={200}
+          width={200}
+          legend={false}
+          className="donutAlign"
         /></Col>
         <Col sm={4} xs={12} className="mobileSpacing fromContainer">
           <FrommersInfo frommers={this.props.frommers} />
