@@ -16,26 +16,7 @@ import { pinArray } from '../../utils/storyPageHelpers';
 
 
 class destinationPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showModal: false,
-      title: `${this.props.current.destination.city}, ${this.props.current.destination.country}`,
-      info: '',
-    };
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-    this.loadDestination = this.loadDestination.bind(this);
-    this.loadHotel = this.loadHotel.bind(this);
-    this.loadEvents = this.loadEvents.bind(this);
-    this.loadFood = this.loadFood.bind(this);
-  }
-
-  componentWillMount() {
-    window.scrollTo(0, 0);
-  }
-
-  modalInfo(tripInfo) {
+  static modalInfo(tripInfo) {
     if (tripInfo.city) {
       return (
         <div>
@@ -77,6 +58,25 @@ class destinationPage extends Component {
         </div>
         ));
     }
+    return '';
+  }
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      title: `${this.props.current.destination.city}, ${this.props.current.destination.country}`,
+      info: '',
+    };
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+    this.loadDestination = this.loadDestination.bind(this);
+    this.loadHotel = this.loadHotel.bind(this);
+    this.loadEvents = this.loadEvents.bind(this);
+    this.loadFood = this.loadFood.bind(this);
+  }
+
+  componentWillMount() {
+    window.scrollTo(0, 0);
   }
 
   open(tripInfo) {
