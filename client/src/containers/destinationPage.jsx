@@ -35,6 +35,42 @@ class destinationPage extends Component {
     window.scrollTo(0, 0);
   }
 
+  open(tripInfo) {
+    this.setState({ showModal: true });
+    this.setState({ info: this.modalInfo(tripInfo) });
+  }
+
+  close() {
+    this.setState({ showModal: false });
+  }
+
+  loadDestination() {
+    if (this.props.current.destination.imageUrl.length > 0) {
+      return <div onClick={() => this.open(this.props.current.destination)}><img alt="" className="circleAdd circleAddDest" style={{ marginTop: '9vw' }} src={this.props.current.destination.imageUrl[0]} /></div>;
+    }
+    return '';
+  }
+
+  loadHotel() {
+    if (this.props.current.hotel.pictures.length > 0) {
+      return <div onClick={() => this.open(this.props.current.hotel)}><img alt="" className="circleAdd circleAddHotel" style={{ marginTop: '17vw' }} src={this.props.current.hotel.pictures[0]} /></div>;
+    }
+    return '';
+  }
+
+  loadEvents() {
+    if (this.props.current.viatorEvents.length > 0) {
+      return <div onClick={() => this.open(this.props.current.viatorEvents)}><img alt="" className="circleAdd circleAddEvent" style={{ marginTop: '25vw' }} src={this.props.current.viatorEvents[0].image} /></div>;
+    }
+    return '';
+  }
+
+  loadFood() {
+    if (this.props.current.yelpEvents.length > 0) {
+      return <div onClick={() => this.open(this.props.current.yelpEvents)}><img alt="" className="circleAdd circleAddFood" style={{ marginTop: '33vw' }} src={this.props.current.yelpEvents[0].image_url} /></div>;
+    }
+    return '';
+  }
   modalInfo(tripInfo) {
     if (tripInfo.city) {
       return (
@@ -77,45 +113,8 @@ class destinationPage extends Component {
         </div>
         ));
     }
-  }
-
-  open(tripInfo) {
-    this.setState({ showModal: true });
-    this.setState({ info: this.modalInfo(tripInfo) });
-  }
-
-  close() {
-    this.setState({ showModal: false });
-  }
-
-  loadDestination() {
-    if (this.props.current.destination.imageUrl.length > 0) {
-      return <div onClick={() => this.open(this.props.current.destination)}><img alt="" className="circleAdd circleAddDest" style={{ marginTop: '9vw' }} src={this.props.current.destination.imageUrl[0]} /></div>;
-    }
     return '';
   }
-
-  loadHotel() {
-    if (this.props.current.hotel.pictures.length > 0) {
-      return <div onClick={() => this.open(this.props.current.hotel)}><img alt="" className="circleAdd circleAddHotel" style={{ marginTop: '17vw' }} src={this.props.current.hotel.pictures[0]} /></div>;
-    }
-    return '';
-  }
-
-  loadEvents() {
-    if (this.props.current.viatorEvents.length > 0) {
-      return <div onClick={() => this.open(this.props.current.viatorEvents)}><img alt="" className="circleAdd circleAddEvent" style={{ marginTop: '25vw' }} src={this.props.current.viatorEvents[0].image} /></div>;
-    }
-    return '';
-  }
-
-  loadFood() {
-    if (this.props.current.yelpEvents.length > 0) {
-      return <div onClick={() => this.open(this.props.current.yelpEvents)}><img alt="" className="circleAdd circleAddFood" style={{ marginTop: '33vw' }} src={this.props.current.yelpEvents[0].image_url} /></div>;
-    }
-    return '';
-  }
-
   render() {
     const budget = Math.floor(this.props.budget.original);
     const flightCost = Math.floor(this.props.budget.flight) || 0;
@@ -270,10 +269,7 @@ destinationPage.propTypes = {
       id: PropTypes.number,
       lat: PropTypes.number,
       lng: PropTypes.number,
-      neighborhood: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
+      neighborhood: PropTypes.string,
       pictures: PropTypes.arrayOf(PropTypes.string),
       price: PropTypes.number,
       rating: PropTypes.number,
@@ -357,23 +353,11 @@ destinationPage.propTypes = {
       countryCode: PropTypes.string,
       extra: PropTypes.shape({
         confidence: PropTypes.number,
-        establishment: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
+        establishment: PropTypes.string,
         googlePlaceId: PropTypes.string,
-        neightborhood: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
-        premise: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
-        subpremise: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
+        neightborhood: PropTypes.string,
+        premise: PropTypes.string,
+        subpremise: PropTypes.string,
       }),
       formattedAddress: PropTypes.string,
       latitude: PropTypes.number,
@@ -392,23 +376,11 @@ destinationPage.propTypes = {
       countryCode: PropTypes.string,
       extra: PropTypes.shape({
         confidence: PropTypes.number,
-        establishment: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
+        establishment: PropTypes.string,
         googlePlaceId: PropTypes.string,
-        neightborhood: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
-        premise: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
-        subpremise: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
+        neightborhood: PropTypes.string,
+        premise: PropTypes.string,
+        subpremise: PropTypes.string,
       }),
       formattedAddress: PropTypes.string,
       latitude: PropTypes.number,
@@ -423,10 +395,7 @@ destinationPage.propTypes = {
         id: PropTypes.number,
         lat: PropTypes.number,
         lng: PropTypes.number,
-        neighborhood: PropTypes.oneOfType([
-          PropTypes.null,
-          PropTypes.string,
-        ]),
+        neighborhood: PropTypes.string,
         pictures: PropTypes.arrayOf(PropTypes.string),
         price: PropTypes.number,
         rating: PropTypes.number,

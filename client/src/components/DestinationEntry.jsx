@@ -130,10 +130,7 @@ DestinationEntry.propTypes = {
       imageUrl: PropTypes.arrayOf(PropTypes.string),
       price: PropTypes.number,
     })),
-    error: PropTypes.oneOfType([
-      PropTypes.null,
-      PropTypes.bool,
-    ]),
+    error: PropTypes.bool,
     fetched: PropTypes.bool,
     fetching: PropTypes.bool,
   }),

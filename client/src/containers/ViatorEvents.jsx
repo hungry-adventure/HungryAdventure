@@ -122,10 +122,7 @@ ViatorEvents.propTypes = {
       id: PropTypes.number,
       lat: PropTypes.number,
       lng: PropTypes.number,
-      neighborhood: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
+      neighborhood: PropTypes.string,
       pictures: PropTypes.arrayOf(
         PropTypes.string,
       ),

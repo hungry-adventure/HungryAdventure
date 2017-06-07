@@ -13,6 +13,12 @@ import { getGoogleData } from '../actions/userLocationAction';
 
 
 class Destinations extends Component {
+  static getRandomInt(min, max) {
+    const minCopy = Math.ceil(min);
+    const maxCopy = Math.floor(max);
+    return Math.floor(Math.random() * (maxCopy - minCopy)) + minCopy;
+  }
+
   constructor(props) {
     super(props);
     this.getRandomInt = this.getRandomInt.bind(this);
@@ -50,12 +56,6 @@ class Destinations extends Component {
         this.props.fetchDestinations(queryObj);
       }
     }
-  }
-
-  getRandomInt(min, max) {
-    const minCopy = Math.ceil(min);
-    const maxCopy = Math.floor(max);
-    return Math.floor(Math.random() * (maxCopy - minCopy)) + minCopy;
   }
 
   submit(values) {
@@ -187,10 +187,7 @@ Destinations.propTypes = {
       imageUrl: PropTypes.arrayOf(PropTypes.string),
       price: PropTypes.number,
     })),
-    error: PropTypes.oneOfType([
-      PropTypes.null,
-      PropTypes.bool,
-    ]),
+    error: PropTypes.bool,
     fetched: PropTypes.bool,
     fetching: PropTypes.bool,
   }),
