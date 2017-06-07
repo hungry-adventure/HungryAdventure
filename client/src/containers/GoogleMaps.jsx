@@ -60,23 +60,11 @@ GoogleMaps.propTypes = {
     countryCode: PropTypes.string,
     extra: PropTypes.shape({
       confidence: PropTypes.number,
-      establishment: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
+      establishment: PropTypes.string,
       googlePlaceId: PropTypes.string,
-      neightborhood: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
-      premise: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
-      subpremise: PropTypes.oneOfType([
-        PropTypes.null,
-        PropTypes.string,
-      ]),
+      neightborhood: PropTypes.string,
+      premise: PropTypes.string,
+      subpremise: PropTypes.string,
     }),
     formattedAddress: PropTypes.string,
     latitude: PropTypes.number,

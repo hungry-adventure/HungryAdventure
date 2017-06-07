@@ -34,15 +34,15 @@ const appReducer = combineReducers({
   viator,
   toggle,
   frommers,
-  airportCode
+  airportCode,
 });
 
 const rootReducer = (state, action) => {
   if (action.type === 'RESET_STATE') {
-    state = undefined
+    state = undefined;
   }
 
-  return appReducer(state, action)
-}
+  return appReducer(state, action);
+};
 
 export default rootReducer;

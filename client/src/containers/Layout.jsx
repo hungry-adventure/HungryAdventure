@@ -50,7 +50,9 @@ class Layout extends Component {
       startDate: values.departDate,
       endDate: values.arrivalDate,
     };
+    console.log('HIDKJDSFKLJ', values.cityId);
     values.cityId = this.props.airportCode.airportCode;
+    console.log('0000000', values.cityId, this.props.airportCode.airportCode);
     this.props.getBudget(values);
     this.props.history.push(`/flights?Budget=${values.Budget}&departDate=${values.departDate}&arrivalDate=${values.arrivalDate}`);
     this.props.fetchDestinations(values)
