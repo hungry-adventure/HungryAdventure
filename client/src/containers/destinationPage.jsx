@@ -16,50 +16,7 @@ import { pinArray } from '../../utils/storyPageHelpers';
 
 
 class destinationPage extends Component {
-  static modalInfo(tripInfo) {
-    if (tripInfo.city) {
-      return (
-        <div>
-          <h4>Terminal: { tripInfo.originTerminal }</h4>
-          <h4>Price: ${ tripInfo.price }</h4>
-          <h4>Arrving: { tripInfo.arrivalDate }</h4>
-          <h4>Leaving: {tripInfo.departureDate }</h4>
-          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
-        </div>
-      );
-    } else if (tripInfo.hotel) {
-      return (
-        <div>
-          <h4>Hotel: { tripInfo.hotel }</h4>
-          <h4>Price: ${ tripInfo.price }</h4>
-          <h4>Location: { tripInfo.address }</h4>
-          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
-        </div>
-      );
-    } else if (Array.isArray(tripInfo) && tripInfo[0].name) {
-      return tripInfo.map(event => (
-        <div key={event.name + event.price}>
-          <h6>{ event.name }</h6>
-          <h6>{ event.categories[0].title }</h6>
-          <h6>Price: { event.price }</h6>
-          <h6>Rating: { event.rating }</h6>
-          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
-          <br />
-        </div>
-        ));
-    } else if (Array.isArray(tripInfo) && tripInfo[0].title) {
-      return tripInfo.map(event => (
-        <div key={event.name + event.price}>
-          <h6>{ event.title }</h6>
-          <h6>Price: ${ event.price }</h6>
-          <h6>Rating: { event.rating }</h6>
-          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
-          <br />
-        </div>
-        ));
-    }
-    return '';
-  }
+
   constructor(props) {
     super(props);
     this.state = {
@@ -115,7 +72,50 @@ class destinationPage extends Component {
     }
     return '';
   }
-
+  modalInfo(tripInfo) {
+    if (tripInfo.city) {
+      return (
+        <div>
+          <h4>Terminal: { tripInfo.originTerminal }</h4>
+          <h4>Price: ${ tripInfo.price }</h4>
+          <h4>Arrving: { tripInfo.arrivalDate }</h4>
+          <h4>Leaving: {tripInfo.departureDate }</h4>
+          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
+        </div>
+      );
+    } else if (tripInfo.hotel) {
+      return (
+        <div>
+          <h4>Hotel: { tripInfo.hotel }</h4>
+          <h4>Price: ${ tripInfo.price }</h4>
+          <h4>Location: { tripInfo.address }</h4>
+          <h4><a href={tripInfo.url} target="_blank" rel="noopener noreferrer" >More Info</a></h4>
+        </div>
+      );
+    } else if (Array.isArray(tripInfo) && tripInfo[0].name) {
+      return tripInfo.map(event => (
+        <div key={event.name + event.price}>
+          <h6>{ event.name }</h6>
+          <h6>{ event.categories[0].title }</h6>
+          <h6>Price: { event.price }</h6>
+          <h6>Rating: { event.rating }</h6>
+          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
+          <br />
+        </div>
+        ));
+    } else if (Array.isArray(tripInfo) && tripInfo[0].title) {
+      return tripInfo.map(event => (
+        <div key={event.name + event.price}>
+          <h6>{ event.title }</h6>
+          <h6>Price: ${ event.price }</h6>
+          <h6>Rating: { event.rating }</h6>
+          <h6><a href={event.url} target="_blank" rel="noopener noreferrer" >More Info</a></h6>
+          <br />
+        </div>
+        ));
+    }
+    return '';
+  }
   render() {
     const budget = Math.floor(this.props.budget.original);
     const flightCost = Math.floor(this.props.budget.flight) || 0;
