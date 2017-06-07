@@ -1,4 +1,5 @@
 const Xray = require('x-ray');
+
 const xray = Xray();
 
 module.exports = {
@@ -9,7 +10,7 @@ module.exports = {
       description: '',
     }])((err, info) => {
       if (info[0] === undefined) {
-        res.send("");
+        res.send('');
       } else {
         res.send(info[0].description);
       }

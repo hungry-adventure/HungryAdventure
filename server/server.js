@@ -4,7 +4,6 @@ const cors = require('cors');
 require('dotenv').config();
 
 const pg = require('./config/database.js');
-
 const app = express();
 app.use(cors());
 require('./config/routes.js')(app, express);

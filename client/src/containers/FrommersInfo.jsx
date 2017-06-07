@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class FrommersInfo extends Component {
-  constructor(props) {
-    super(props);
-  }
+const FrommersInfo = ({ frommers }) => <div>{frommers.description}</div>;
 
-  render() {
-    return (
-      <div>{this.props.description}</div>
-    );
-  }
-}
+FrommersInfo.defaultProps = {
+  frommers: {
+    description: '',
+  },
+};
 
-const mapStateToProps = ({ frommers }) => ({
-  ...frommers,
-});
+FrommersInfo.propTypes = {
+  frommers: PropTypes.shape({
+    description: PropTypes.string,
+  }),
+};
 
-export default connect(mapStateToProps, null)(FrommersInfo);
+export default FrommersInfo;

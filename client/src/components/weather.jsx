@@ -1,42 +1,70 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Col } from 'react-bootstrap';
-import { fetchWeather } from '../actions/weatherAction';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Weather extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    if (this.props.weather.weather === undefined) {
-      return (
-        <div>loading</div>
-      );
-    }
-    const date = (new Date(this.props.destination.arrivalDate)).toString().slice(0, 15);
-    const herojpg = this.props.destination.imageUrl[1] || this.props.destination.imageUrl[0];
+const Weather = ({ destination, weather }) => {
+  if (weather === undefined) {
     return (
-      <div id="card" className="weather">
-        <div className="city-selected">
-          <article>
-            <div className="info">
-              <h5>{date}</h5>
-              <h4 className="city">{this.props.destination.city}</h4>
-              <h3>{this.props.weather.weather.highTemp}°F / {this.props.weather.weather.lowTemp}°F</h3>
-              <br />
-              <h6>{this.props.weather.weather.summary}</h6>
-            </div>
-          </article>
-          <figure style={{ backgroundImage: `url(${herojpg})` }} />
-        </div>
-      </div>
+      <div>loading</div>
     );
   }
-}
+  const date = (new Date(destination.arrivalDate)).toString().slice(0, 15);
+  const herojpg = destination.imageUrl[1] || destination.imageUrl[0];
+  return (
+    <div id="card" className="weather">
+      <div className="city-selected">
+        <article>
+          <div className="info">
+            <h5>{date}</h5>
+            <h4 className="city">{destination.city}</h4>
+            <h3>{`${weather.highTemp}°F / ${weather.lowTemp}°F`}</h3>
+            <br />
+            <h6>{weather.summary}</h6>
+          </div>
+        </article>
+        <figure style={{ backgroundImage: `url(${herojpg})` }} />
+      </div>
+    </div>
+  );
+};
 
-const mapStateToProps = state => ({
-  ...state,
-});
+Weather.defaultProps = {
+  weather: {
+    date: '',
+    highTemp: '--',
+    lowTemp: '--',
+    summary: '',
+    timeofDay: '',
+  },
+  destination: {
+    IataCode: '',
+    arrivalDate: '',
+    carrier: '',
+    city: '',
+    country: '',
+    departureDate: '',
+    imageUrl: [],
+    price: 0,
+  },
+};
 
-export default connect(mapStateToProps, null)(Weather);
+Weather.propTypes = {
+  weather: PropTypes.shape({
+    date: PropTypes.string,
+    highTemp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    lowTemp: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    summary: PropTypes.string,
+    timeofDay: PropTypes.string,
+  }),
+  destination: PropTypes.shape({
+    IataCode: PropTypes.string,
+    arrivalDate: PropTypes.string,
+    carrier: PropTypes.string,
+    city: PropTypes.string,
+    country: PropTypes.string,
+    departureDate: PropTypes.string,
+    imageUrl: PropTypes.arrayOf(PropTypes.string),
+    price: PropTypes.number,
+  }),
+};
+
+export default Weather;
